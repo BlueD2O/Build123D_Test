@@ -1,0 +1,254 @@
+[
+  {
+    "part": "Top Shell",
+    "status": "PASS",
+    "original_metrics": {
+      "watertight": true,
+      "volume": 24154.48750503096,
+      "extents": [
+        135.0,
+        53.0,
+        14.82379961013794
+      ],
+      "bounds": [
+        [
+          -68.5035587950529,
+          -26.20173817507156,
+          -9.86481893303132
+        ],
+        [
+          66.4964412049471,
+          26.79826182492844,
+          4.95898067710662
+        ]
+      ],
+      "faces": 11666,
+      "vertices": 5825
+    },
+    "generated_metrics": {
+      "watertight": true,
+      "volume": 24153.6534055391,
+      "extents": [
+        135.0,
+        53.0,
+        14.824000358581547
+      ],
+      "bounds": [
+        [
+          -68.5038079951564,
+          -26.20109163772063,
+          -9.864978636178826
+        ],
+        [
+          66.4961920048436,
+          26.79890836227937,
+          4.95902172240272
+        ]
+      ],
+      "faces": 10276,
+      "vertices": 5130
+    },
+    "max_extent_delta_mm": 0.000201,
+    "extent_delta_xyz_mm": [
+      0.0,
+      0.0,
+      0.000201
+    ],
+    "volume_delta_mm3": 0.834099,
+    "volume_delta_percent": 0.003453,
+    "symmetric_difference_volume_mm3": 22.445568,
+    "symmetric_difference_error": null,
+    "pass_extents": true,
+    "pass_volume": true,
+    "pass_symdiff": true
+  },
+  {
+    "part": "Bottom Shell",
+    "status": "PASS",
+    "original_metrics": {
+      "watertight": true,
+      "volume": 27602.848934670677,
+      "extents": [
+        135.0,
+        53.0,
+        19.423799514770508
+      ],
+      "bounds": [
+        [
+          -67.49971321463401,
+          -25.396864830058135,
+          -5.995188331221003
+        ],
+        [
+          67.50028678536599,
+          27.603135169941865,
+          13.428611183549505
+        ]
+      ],
+      "faces": 8450,
+      "vertices": 4227
+    },
+    "generated_metrics": {
+      "watertight": true,
+      "volume": 27602.11723094255,
+      "extents": [
+        135.0,
+        53.0,
+        19.423999786376957
+      ],
+      "bounds": [
+        [
+          -67.50000186865391,
+          -25.39669290599796,
+          -5.995233364007347
+        ],
+        [
+          67.49999813134609,
+          27.60330709400204,
+          13.428766422369609
+        ]
+      ],
+      "faces": 7700,
+      "vertices": 3852
+    },
+    "max_extent_delta_mm": 0.0002,
+    "extent_delta_xyz_mm": [
+      0.0,
+      0.0,
+      0.0002
+    ],
+    "volume_delta_mm3": 0.731704,
+    "volume_delta_percent": 0.002651,
+    "symmetric_difference_volume_mm3": 7.585017,
+    "symmetric_difference_error": null,
+    "pass_extents": true,
+    "pass_volume": true,
+    "pass_symdiff": true
+  },
+  {
+    "part": "Buttons",
+    "status": "PASS",
+    "original_metrics": {
+      "watertight": true,
+      "volume": 1150.7828804095577,
+      "extents": [
+        11.832157135009766,
+        11.832159519195557,
+        15.473799705505371
+      ],
+      "bounds": [
+        [
+          -5.916077881339959,
+          -5.916079893687439,
+          -6.987124793096655
+        ],
+        [
+          5.916079253669807,
+          5.916079625508118,
+          8.486674912408716
+        ]
+      ],
+      "faces": 926,
+      "vertices": 465
+    },
+    "generated_metrics": {
+      "watertight": true,
+      "volume": 1150.7243174461926,
+      "extents": [
+        11.832000732421875,
+        11.832000374794006,
+        15.473999977111816
+      ],
+      "bounds": [
+        [
+          -5.916002996318362,
+          -5.916000333309209,
+          -6.987125968956391
+        ],
+        [
+          5.915997736103513,
+          5.916000041484797,
+          8.486874008155425
+        ]
+      ],
+      "faces": 1060,
+      "vertices": 532
+    },
+    "max_extent_delta_mm": 0.0002,
+    "extent_delta_xyz_mm": [
+      0.000156,
+      0.000159,
+      0.0002
+    ],
+    "volume_delta_mm3": 0.058563,
+    "volume_delta_percent": 0.005089,
+    "symmetric_difference_volume_mm3": 0.223598,
+    "symmetric_difference_error": null,
+    "pass_extents": true,
+    "pass_volume": true,
+    "pass_symdiff": true
+  },
+  {
+    "part": "D-Pad",
+    "status": "PASS",
+    "original_metrics": {
+      "watertight": true,
+      "volume": 7947.732925765206,
+      "extents": [
+        32.05754280090332,
+        28.414956092834473,
+        15.473799705505371
+      ],
+      "bounds": [
+        [
+          -16.028418165417776,
+          -14.206460387431235,
+          -6.996850336195623
+        ],
+        [
+          16.029124635485545,
+          14.208495705403237,
+          8.476949369309748
+        ]
+      ],
+      "faces": 730,
+      "vertices": 367
+    },
+    "generated_metrics": {
+      "watertight": true,
+      "volume": 7948.221388790463,
+      "extents": [
+        32.05683517456055,
+        28.415417671203613,
+        15.473999977111816
+      ],
+      "bounds": [
+        [
+          -16.027848256449666,
+          -14.20667517446187,
+          -6.997017309622581
+        ],
+        [
+          16.02898691811088,
+          14.208742496741744,
+          8.476982667489235
+        ]
+      ],
+      "faces": 724,
+      "vertices": 364
+    },
+    "max_extent_delta_mm": 0.000708,
+    "extent_delta_xyz_mm": [
+      0.000708,
+      0.000462,
+      0.0002
+    ],
+    "volume_delta_mm3": 0.488463,
+    "volume_delta_percent": 0.006146,
+    "symmetric_difference_volume_mm3": 1.068798,
+    "symmetric_difference_error": null,
+    "pass_extents": true,
+    "pass_volume": true,
+    "pass_symdiff": true
+  }
+]
