@@ -56,7 +56,7 @@ Correctness was verified using a **multi-layered approach**:
 
 4. **Positioning check** — The assembly was inspected in the GUI tool to verify that all components are **correctly positioned relative to each other** (e.g., buttons sit in their slots, D-Pad aligns with its cutout).
 
-5. **Scripted volume validation** *(planned)* — Automated scripts will be written to programmatically calculate and compare volumes of each part for repeatable, quantitative verification.
+5. **Scripted volume and geometric validation**  — Automated scripts written to programmatically calculate and compare volumes of each part for repeatable, quantitative verification.
 
 ### Volumetric Comparison
 
@@ -72,18 +72,18 @@ Correctness was verified using a **multi-layered approach**:
 
 | Part           | Dimension | Original (mm) | Generated (mm) | Match |
 |----------------|-----------|---------------|-----------------|-------|
-| Top Shell      | Length    | TBD           | TBD             | TBD   |
-| Top Shell      | Width     | TBD           | TBD             | TBD   |
-| Top Shell      | Height    | TBD           | TBD             | TBD   |
-| Bottom Shell   | Length    | TBD           | TBD             | TBD   |
-| Bottom Shell   | Width     | TBD           | TBD             | TBD   |
-| Bottom Shell   | Height    | TBD           | TBD             | TBD   |
-| Buttons        | Length    | TBD           | TBD             | TBD   |
-| Buttons        | Width     | TBD           | TBD             | TBD   |
-| Buttons        | Height    | TBD           | TBD             | TBD   |
-| D-Pad          | Length    | TBD           | TBD             | TBD   |
-| D-Pad          | Width     | TBD           | TBD             | TBD   |
-| D-Pad          | Height    | TBD           | TBD             | TBD   |
+| Top Shell      | Length    | 135.000       | 135.000         | Yes   |
+| Top Shell      | Width     | 53.000        | 53.000          | Yes   |
+| Top Shell      | Height    | 14.824        | 14.824          | Yes   |
+| Bottom Shell   | Length    | 135.000       | 135.000         | Yes   |
+| Bottom Shell   | Width     | 53.000        | 53.000          | Yes   |
+| Bottom Shell   | Height    | 19.424        | 19.424          | Yes   |
+| Buttons        | Length    | 11.832        | 11.832          | Yes   |
+| Buttons        | Width     | 11.832        | 11.832          | Yes   |
+| Buttons        | Height    | 15.474        | 15.474          | Yes   |
+| D-Pad          | Length    | 32.058        | 32.057          | Yes   |
+| D-Pad          | Width     | 28.415        | 28.415          | Yes   |
+| D-Pad          | Height    | 15.474        | 15.474          | Yes   |
 
 ---
 
