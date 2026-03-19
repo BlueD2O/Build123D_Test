@@ -173,4 +173,6 @@ with BuildPart() as top_shell:
 final_top_shell = top_shell.part
 
 if __name__ == "__main__":
-    export_step(final_top_shell, "test_case.step")
+    export_step(final_top_shell, "test_top_shell.step")
+
+    export_stl(final_top_shell, "test_top_shell.stl")

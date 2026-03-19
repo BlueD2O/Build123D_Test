@@ -60,4 +60,6 @@ with BuildPart() as Buttons:
 final_buttons = Buttons.part
 
 if __name__ == "__main__":
-    export_step(final_buttons, "test_case.step")
+    export_step(final_buttons, "test_buttons.step")
+
+    export_stl(final_buttons, "test_buttons.stl")
