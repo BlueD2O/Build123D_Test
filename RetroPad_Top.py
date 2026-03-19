@@ -19,38 +19,35 @@ base_outer_chamfer = 3 * MM
 
 
 with BuildPart() as top_shell:
-    # 1. Start with a hollow box (open top)
+    # Base box
     Box(total_length, total_width, top_shell_height, align=(Align.CENTER, Align.CENTER, Align.MAX))
-    #select the corner edges and chamfer them
+
+    # Chamfer vertical corner edges
     corner_edges = top_shell.edges().filter_by(Axis.Z)
     chamfer(corner_edges, length=corner_chamfer)
-    # Shell it (remove top face)
+
+    # Shell — remove bottom face to create hollow body
     bottom_face = top_shell.faces().sort_by(Axis.Z)[0]
     offset(amount=-wall_thickness, openings=bottom_face)
-    # 2. SELECT the internal floor
-    # Index [0] is the bottom-most exterior face. 
-    # Index [1] is the interior floor face.
+
+    # Thicken the internal floor to match base_thickness
     floor = top_shell.faces().filter_by(GeomType.PLANE).sort_by(Axis.Z)[-2]
-    # 3. EXTRUDE the floor UP by 2mm
-    # This adds 2mm of thickness to the base of your hollow body
-    extrude(floor,amount=(base_thickness-wall_thickness),mode=Mode.ADD)
+    extrude(floor, amount=(base_thickness - wall_thickness), mode=Mode.ADD)
 
     top_shell_new_floor = top_shell.faces().filter_by(GeomType.PLANE).sort_by(Axis.Z)[-2]
 
-    #select the bottom face and chamfer the outer edges
+    # Chamfer bottom outer edges
     bottom_face = top_shell.faces().sort_by(Axis.Z)[-1]
     chamfer(bottom_face.edges(), length=base_outer_chamfer)
 
-    # 6. select the front side wall face and add a rectangular cutout
+    # Front wall rectangular cutout (connector opening)
     front_wall_outer_face = top_shell.faces().filter_by(Axis.Y).sort_by(Axis.Y)[-1]
     with BuildSketch(front_wall_outer_face) as cutout_sketch:
-        # Draw a rectangle cutout
         with Locations((1.5, 0)):
             Rectangle(rectangular_cutout__height, rectangular_cutout__length)
+    extrude(amount=-wall_thickness * 3, mode=Mode.SUBTRACT)
 
-    extrude(amount=-wall_thickness*3, mode=Mode.SUBTRACT)
-
-    #create holder bracket for connector
+    # Connector holder bracket
     connector_slot_outer_face = top_shell.faces().filter_by(Axis.Y).sort_by(Axis.Y)[2]
     rectangular_bracket_length = 35.239 * MM
     rectangular_bracket_width = 20.953 * MM
@@ -58,43 +55,32 @@ with BuildPart() as top_shell:
     rectangular_bracket_thickness = 2 * MM
     rectangular_bracket_center_z = 8.912 * MM
     with BuildSketch(connector_slot_outer_face) as bracket_sketch:
-        # Draw a cuboid of bracket size
-        with Locations((-(rectangular_bracket_center_z-(base_thickness/2)), 0)):
+        with Locations((-(rectangular_bracket_center_z - (base_thickness / 2)), 0)):
             Rectangle(rectangular_bracket_height, rectangular_bracket_length)
     extrude(amount=-rectangular_bracket_width, mode=Mode.ADD)
 
-    #cut the bracket from the outer face to make slot
+    # Bracket inner slot (subtract to create pocket)
     with BuildSketch(connector_slot_outer_face) as bracket_slot_sketch:
-        # Draw a cuboid of bracket slot size
-        with Locations((-(rectangular_bracket_center_z-(base_thickness/2)), 0)):
-            Rectangle(rectangular_bracket_height, rectangular_bracket_length-4)
-    extrude(amount=-1*(rectangular_bracket_width-2), mode=Mode.SUBTRACT)
+        with Locations((-(rectangular_bracket_center_z - (base_thickness / 2)), 0)):
+            Rectangle(rectangular_bracket_height, rectangular_bracket_length - 4)
+    extrude(amount=-1 * (rectangular_bracket_width - 2), mode=Mode.SUBTRACT)
 
-
-    #create the central standoff
-
+    # Central standoff (hollow cylinder)
     with BuildSketch(top_shell_new_floor) as central_standoff_sketch:
         with Locations((0, 11.5)):
-            #draw the main outer circle
             Circle(4)
-            #draw the smaller inner circle and subtract it to make a hollow standoff
             Circle(2.6, mode=Mode.SUBTRACT)
     extrude(amount=top_shell_standoff_height, mode=Mode.ADD)
 
-
-    #create the corner standoffs and distribute them along X and Y axes
-
-    
+    # Corner standoffs (hollow cylinders) in 2x2 grid
     with BuildSketch(top_shell_new_floor) as corner_standoff_sketch:
         with GridLocations(x_spacing=105, y_spacing=25, x_count=2, y_count=2):
             with Locations((0, -1)):
-                #draw the main outer circle
                 Circle(2.5)
-                #draw the smaller inner circle and subtract it to make a hollow standoff
                 Circle(1.1, mode=Mode.SUBTRACT)
     extrude(amount=top_shell_standoff_height, mode=Mode.ADD)
 
-    #create the elliptical peg
+    # Hollow elliptical peg
     ellipse_x_radius = 17.229 * MM
     ellipse_y_radius = 15.409 * MM
     peg_height = 7.474 * MM
@@ -102,22 +88,22 @@ with BuildPart() as top_shell:
     ellipse_center_y = 1 * MM
     peg_thickness = 1 * MM
 
-    peg_overlap = 0  # overlap into the floor for a clean Boolean union
+    peg_overlap = 0  # overlap into floor for clean Boolean union
     peg_plane = Plane.XY.offset(-(base_thickness - peg_overlap))
 
-    # Step 1: Add the OUTER solid ellipse (clean analytical curve, no offset())
+    # Outer solid ellipse
     with BuildSketch(peg_plane) as peg_outer_sketch:
         with Locations((ellipse_center_x, ellipse_center_y)):
             Ellipse(ellipse_x_radius, ellipse_y_radius)
     extrude(amount=-(peg_height + peg_overlap), mode=Mode.ADD)
 
-    # Step 2: Subtract the INNER ellipse to create the hollow ring
+    # Inner ellipse subtracted to create hollow ring
     with BuildSketch(peg_plane) as peg_inner_sketch:
         with Locations((ellipse_center_x, ellipse_center_y)):
             Ellipse(ellipse_x_radius - peg_thickness, ellipse_y_radius - peg_thickness)
     extrude(amount=-(peg_height + peg_overlap), mode=Mode.SUBTRACT)
 
-    #cutout for D-Pad
+    # D-Pad cross-shaped cutout
     dpad_cutout1_length = 30 * MM
     dpad_cutout1_width = 10.021 * MM
     dpad_cutout2_length = 10 * MM
@@ -129,50 +115,47 @@ with BuildPart() as top_shell:
             Rectangle(dpad_cutout2_length, dpad_cutout2_width)
     extrude(amount=-(base_thickness), mode=Mode.SUBTRACT)
 
-    #button slot cutouts
+    # Button slot cutouts (circular holes)
     button_slot_radius = 5 * MM
     button_slot_depth = 10.474 * MM
     button_slot_thickness = 1 * MM
     button_slot_pattern_center = (38 * MM, -1 * MM)
     rectangular_guide_cutout_width = 2 * MM
-    rectangular_guide_cutout_length = ((button_slot_radius+button_slot_thickness)*2) * MM
+    rectangular_guide_cutout_length = ((button_slot_radius + button_slot_thickness) * 2) * MM
 
-    
     with BuildSketch(top_shell_new_floor) as button_slot_cutout_sketch:
         with Locations(button_slot_pattern_center):
-            with GridLocations(x_spacing=20*MM, y_spacing=0, x_count=2, y_count=1):
+            with GridLocations(x_spacing=20 * MM, y_spacing=0, x_count=2, y_count=1):
                 Circle(button_slot_radius)
-            with GridLocations(x_spacing=0, y_spacing=17*MM, x_count=1, y_count=2):
+            with GridLocations(x_spacing=0, y_spacing=17 * MM, x_count=1, y_count=2):
                 Circle(button_slot_radius)
     extrude(amount=-button_slot_depth, mode=Mode.SUBTRACT)
 
+    # Button slot guide rings
     with BuildSketch(top_shell_new_floor) as button_slot_guide_sketch:
         with Locations(button_slot_pattern_center):
-            with GridLocations(x_spacing=20*MM, y_spacing=0, x_count=2, y_count=1):
-                Circle(button_slot_radius+button_slot_thickness, mode=Mode.ADD)
+            with GridLocations(x_spacing=20 * MM, y_spacing=0, x_count=2, y_count=1):
+                Circle(button_slot_radius + button_slot_thickness, mode=Mode.ADD)
                 offset(amount=-button_slot_thickness, mode=Mode.SUBTRACT)
-            with GridLocations(x_spacing=0, y_spacing=17*MM, x_count=1, y_count=2):
-                Circle(button_slot_radius+button_slot_thickness, mode=Mode.ADD)
+            with GridLocations(x_spacing=0, y_spacing=17 * MM, x_count=1, y_count=2):
+                Circle(button_slot_radius + button_slot_thickness, mode=Mode.ADD)
                 offset(amount=-button_slot_thickness, mode=Mode.SUBTRACT)
-    extrude(amount=button_slot_depth-base_thickness, mode=Mode.ADD)
+    extrude(amount=button_slot_depth - base_thickness, mode=Mode.ADD)
 
+    # Button slot cross-shaped guide cutouts
     with BuildSketch(top_shell_new_floor) as button_slot_rectangular_guide_sketch:
         with Locations(button_slot_pattern_center):
-            with GridLocations(x_spacing=20*MM, y_spacing=0, x_count=2, y_count=1):
+            with GridLocations(x_spacing=20 * MM, y_spacing=0, x_count=2, y_count=1):
                 Rectangle(rectangular_guide_cutout_length, rectangular_guide_cutout_width)
                 Rectangle(rectangular_guide_cutout_width, rectangular_guide_cutout_length)
-            with GridLocations(x_spacing=0, y_spacing=17*MM, x_count=1, y_count=2):
+            with GridLocations(x_spacing=0, y_spacing=17 * MM, x_count=1, y_count=2):
                 Rectangle(rectangular_guide_cutout_length, rectangular_guide_cutout_width)
                 Rectangle(rectangular_guide_cutout_width, rectangular_guide_cutout_length)
-    extrude(amount=(button_slot_depth-base_thickness), mode=Mode.SUBTRACT)
+    extrude(amount=(button_slot_depth - base_thickness), mode=Mode.SUBTRACT)
 
-
-
-    
 
 final_top_shell = top_shell.part
 
 if __name__ == "__main__":
     export_step(final_top_shell, "test_top_shell.step")
-
     export_stl(final_top_shell, "test_top_shell.stl")

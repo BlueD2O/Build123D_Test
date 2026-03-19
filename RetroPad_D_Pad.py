@@ -20,8 +20,8 @@ peg_height = 7.474 * MM
 ellipse_center_x = -38 * MM
 ellipse_center_y = 1 * MM
 ellipse_thickness = 1 * MM
-d_pad_x_radius = ellipse_x_radius-1.2 * MM
-d_pad_y_radius = ellipse_y_radius-1.2 * MM
+d_pad_x_radius = ellipse_x_radius - 1.2 * MM
+d_pad_y_radius = ellipse_y_radius - 1.2 * MM
 dpad_cutout1_length = 30 * MM
 dpad_cutout1_width = 10.021 * MM
 dpad_cutout2_length = 10 * MM
@@ -34,28 +34,26 @@ dpad_z = 12.95 * MM
 top_face_chamfer_length = 1 * MM
 
 with BuildPart() as D_Pad:
-    # create the D-Pad ellipse base
+    # Elliptical base
     with BuildSketch(Plane.XY.offset(dpad_ellipse_z)) as dpad_ellipse_sketch:
         with Locations((ellipse_center_x, ellipse_center_y)):
             Ellipse(d_pad_x_radius, d_pad_y_radius)
     extrude(amount=dpad_ellipse_height, mode=Mode.ADD)
 
-    # create the D-Pad rectangular plus
+    # Plus-shaped directional pad
     with BuildSketch(Plane.XY.offset(dpad_z)) as dpad_rectangle_sketch:
         with Locations((ellipse_center_x, ellipse_center_y)):
-             Rectangle(dpad_cutout1_length - 2*dpad_rectangle_offset_from_cutout, dpad_cutout1_width - 2*dpad_rectangle_offset_from_cutout, mode=Mode.ADD)
-             Rectangle(dpad_cutout2_length - 2*dpad_rectangle_offset_from_cutout, dpad_cutout2_width - 2*dpad_rectangle_offset_from_cutout, mode=Mode.ADD)
+             Rectangle(dpad_cutout1_length - 2 * dpad_rectangle_offset_from_cutout, dpad_cutout1_width - 2 * dpad_rectangle_offset_from_cutout, mode=Mode.ADD)
+             Rectangle(dpad_cutout2_length - 2 * dpad_rectangle_offset_from_cutout, dpad_cutout2_width - 2 * dpad_rectangle_offset_from_cutout, mode=Mode.ADD)
     extrude(amount=dpad_height, mode=Mode.ADD)
 
-    # chamfer on the top face of the D-Pad for aesthetics and to prevent sharp edges
+    # Chamfer top face edges
     top_face = D_Pad.faces().filter_by(GeomType.PLANE).sort_by(Axis.Z)[-1]
     chamfer(top_face.edges(), length=top_face_chamfer_length)
 
-    
 
 final_D_Pad = D_Pad.part
 
 if __name__ == "__main__":
     export_step(final_D_Pad, "test_d_pad.step")
-
     export_stl(final_D_Pad, "test_d_pad.stl")
