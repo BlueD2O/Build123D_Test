@@ -57,4 +57,7 @@ with BuildPart() as Buttons:
     chamfer(top_face.edges(), length=button_top_chamfer_length)
     
 
-final_solid = Buttons.part
+final_buttons = Buttons.part
+
+if __name__ == "__main__":
+    export_step(final_buttons, "test_case.step")

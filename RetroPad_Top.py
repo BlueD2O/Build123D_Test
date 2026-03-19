@@ -170,4 +170,7 @@ with BuildPart() as top_shell:
 
     
 
-final_solid = top_shell.part
+final_top_shell = top_shell.part
+
+if __name__ == "__main__":
+    export_step(final_top_shell, "test_case.step")

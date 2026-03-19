@@ -53,4 +53,7 @@ with BuildPart() as D_Pad:
 
     
 
-final_solid = D_Pad.part
+final_D_Pad = D_Pad.part
+
+if __name__ == "__main__":
+    export_step(final_D_Pad, "test_case.step")

@@ -101,4 +101,7 @@ with BuildPart() as bottom_shell:
                 Ellipse(ellipse_x_radius - peg_thickness, ellipse_y_radius - peg_thickness)
     extrude(amount=peg_height + peg_overlap, mode=Mode.SUBTRACT)
 
-final_solid = bottom_shell.part
+final_bottom_shell = bottom_shell.part
+
+if __name__ == "__main__":
+    export_step(final_bottom_shell, "test_case.step")
