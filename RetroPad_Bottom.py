@@ -91,5 +91,5 @@ with BuildPart() as bottom_shell:
 final_bottom_shell = bottom_shell.part
 
 if __name__ == "__main__":
-    export_step(final_bottom_shell, "test_bottom_shell.step")
-    export_stl(final_bottom_shell, "test_bottom_shell.stl")
+    export_step(final_bottom_shell, "STEP_Files/test_bottom_shell.step")
+    export_stl(final_bottom_shell, "STL_Files/test_bottom_shell.stl")

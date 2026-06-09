@@ -29,34 +29,34 @@ button_base_z = 11.95 * MM
 button_slot_guide_height = 5.474 * MM
 button_top_chamfer_length = 1 * MM
 
-with BuildPart() as Buttons:
+with BuildPart() as Button:
     # Cylindrical button bodies (2 horizontal + 2 vertical layout)
     with BuildSketch(Plane.XY.offset(button_base_z)) as button_sketch:
         with Locations(button_slot_pattern_center):
-            with GridLocations(x_spacing=20 * MM, y_spacing=0, x_count=2, y_count=1):
+            # with GridLocations(x_spacing=20 * MM, y_spacing=0, x_count=2, y_count=1):
                 Circle(button_radius, mode=Mode.ADD)
-            with GridLocations(x_spacing=0, y_spacing=17 * MM, x_count=1, y_count=2):
-                Circle(button_radius, mode=Mode.ADD)
+            # with GridLocations(x_spacing=0, y_spacing=17 * MM, x_count=1, y_count=2):
+            #     Circle(button_radius, mode=Mode.ADD)
     extrude(amount=button_height, mode=Mode.ADD)
 
     # Cross-shaped guide fins on each button
     with BuildSketch(Plane.XY.offset(button_base_z)) as button_rectangular_guide_sketch:
         with Locations(button_slot_pattern_center):
-            with GridLocations(x_spacing=20 * MM, y_spacing=0, x_count=2, y_count=1):
+            # with GridLocations(x_spacing=20 * MM, y_spacing=0, x_count=2, y_count=1):
                 Rectangle(rectangular_guide_length, rectangular_guide_width)
                 Rectangle(rectangular_guide_width, rectangular_guide_length)
-            with GridLocations(x_spacing=0, y_spacing=17 * MM, x_count=1, y_count=2):
-                Rectangle(rectangular_guide_length, rectangular_guide_width)
-                Rectangle(rectangular_guide_width, rectangular_guide_length)
+            # with GridLocations(x_spacing=0, y_spacing=17 * MM, x_count=1, y_count=2):
+            #     Rectangle(rectangular_guide_length, rectangular_guide_width)
+            #     Rectangle(rectangular_guide_width, rectangular_guide_length)
     extrude(amount=(button_slot_guide_height), mode=Mode.ADD)
 
     # Chamfer top edges of buttons
-    top_face = Buttons.faces().filter_by(GeomType.PLANE).group_by(Axis.Z)[-1]
+    top_face = Button.faces().filter_by(GeomType.PLANE).group_by(Axis.Z)[-1]
     chamfer(top_face.edges(), length=button_top_chamfer_length)
 
 
-final_buttons = Buttons.part
+final_button = Button.part
 
 if __name__ == "__main__":
-    export_step(final_buttons, "test_buttons.step")
-    export_stl(final_buttons, "test_buttons.stl")
+    export_step(final_button, "STEP_Files/test_button.step")
+    export_stl(final_button, "STL_Files/test_button.stl")

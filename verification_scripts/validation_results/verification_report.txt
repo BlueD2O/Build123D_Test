@@ -22,7 +22,7 @@ Pass symdiff:            True
 Part: Bottom Shell
 Status: PASS
 Original extents (mm):  [135.0, 53.0, 19.423799514770508]
-Generated extents (mm): [135.0, 53.0, 19.423999786376957]
+Generated extents (mm): [135.0, 53.0, 19.423999786376953]
 Extent delta xyz (mm):  [0.0, 0.0, 0.0002]
 Max extent delta (mm):  0.0002
 Original volume (mm^3):  27602.848934670677
@@ -40,14 +40,14 @@ Pass symdiff:            True
 Part: Buttons
 Status: PASS
 Original extents (mm):  [11.832157135009766, 11.832159519195557, 15.473799705505371]
-Generated extents (mm): [11.832000732421875, 11.832000374794006, 15.473999977111816]
-Extent delta xyz (mm):  [0.000156, 0.000159, 0.0002]
+Generated extents (mm): [11.832000732421875, 11.831999778747559, 15.473999977111816]
+Extent delta xyz (mm):  [0.000156, 0.00016, 0.0002]
 Max extent delta (mm):  0.0002
 Original volume (mm^3):  1150.7828804095577
-Generated volume (mm^3): 1150.7243174461926
-Volume delta (mm^3):     0.058563
-Volume delta (%):        0.005089
-Sym diff volume (mm^3):  0.223598
+Generated volume (mm^3): 1150.734046341783
+Volume delta (mm^3):     0.048834
+Volume delta (%):        0.004244
+Sym diff volume (mm^3):  0.215566
 Sym diff error:          None
 Watertight original:     True
 Watertight generated:    True

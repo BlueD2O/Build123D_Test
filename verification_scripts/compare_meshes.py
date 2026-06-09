@@ -3,7 +3,7 @@ import json
 import numpy as np
 import trimesh
 
-ORIG_DIR = Path("../Original_STL")
+ORIG_DIR = Path("../Original_Files")
 GEN_DIR = Path("../STL_Files")
 OUT_DIR = Path("validation_results")
 OUT_DIR.mkdir(exist_ok=True)
@@ -11,7 +11,7 @@ OUT_DIR.mkdir(exist_ok=True)
 PARTS = {
     "Top Shell": ("RetroPad - Top Shell.stl", "test_top_shell.stl"),
     "Bottom Shell": ("RetroPad - Bottom Shell.stl", "test_bottom_shell.stl"),
-    "Buttons": ("RetroPad - Button.stl", "test_buttons.stl"),
+    "Buttons": ("RetroPad - Button.stl", "test_button.stl"),
     "D-Pad": ("RetroPad - D-Pad.stl", "test_d_pad.stl"),
 }
 
